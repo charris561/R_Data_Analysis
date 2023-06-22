@@ -11,6 +11,9 @@ install.packages("readr")
 #Load library
 library(readr)
 
+#Set working directory
+setwd("C:/dev/r_data_analysis/homework/hw2")
+
 #Load csv input file
 Auto = read_csv("Auto.csv")
 
