@@ -1,0 +1,399 @@
+Script Output For HW2 .R File
+6-21-23
+----------
+R version 4.3.1 (2023-06-16 ucrt) -- "Beagle Scouts"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Workspace loaded from C:/Dev/R_Data_Analysis/Homework/HW2/.RData]
+
+> #Homework Assignment 2
+> #Name: Caleb Harris
+> #Course: CS 2020-001
+> #Input Files: Auto.csv from canvas
+> #----------
+> # Part A: load Auto.csv file in a variable called Auto
+> 
+> #Install dependencies
+> install.packages("readr")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Installing package into ‘C:/Users/Harri/AppData/Local/R/win-library/4.3’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.3/readr_2.1.4.zip'
+Content type 'application/zip' length 1204291 bytes (1.1 MB)
+downloaded 1.1 MB
+
+package ‘readr’ successfully unpacked and MD5 sums checked
+Warning in install.packages :
+  cannot remove prior installation of package ‘readr’
+Warning in install.packages :
+  problem copying C:\Users\Harri\AppData\Local\R\win-library\4.3\00LOCK\readr\libs\x64\readr.dll to C:\Users\Harri\AppData\Local\R\win-library\4.3\readr\libs\x64\readr.dll: Permission denied
+Warning in install.packages :
+  restored ‘readr’
+
+The downloaded binary packages are in
+	C:\Users\Harri\AppData\Local\Temp\RtmpeqFReV\downloaded_packages
+> 
+> #Load library
+> library(readr)
+> 
+> #Set working directory
+> setwd("C:/dev/r_data_analysis/homework/hw2")
+> 
+> #Load csv input file
+> Auto = read_csv("Auto.csv")
+Rows: 397 Columns: 9                                                                                          
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): horsepower, name
+dbl (7): mpg, cylinders, displacement, weight, acceleration, year, origin
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> #   note: file must be in your working directory to use syntax as done above.
+> 
+> # Part B: What is the type and class of the Auto variable
+> 
+> typeof(Auto)
+[1] "list"
+> class(Auto)
+[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" 
+> 
+> # Part C: Use a R command/function to find the dimensions of the Auto variable
+> str(Auto)
+spc_tbl_ [397 × 9] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ mpg         : num [1:397] 18 15 18 16 17 15 14 14 14 15 ...
+ $ cylinders   : num [1:397] 8 8 8 8 8 8 8 8 8 8 ...
+ $ displacement: num [1:397] 307 350 318 304 302 429 454 440 455 390 ...
+ $ horsepower  : chr [1:397] "130" "165" "150" "150" ...
+ $ weight      : num [1:397] 3504 3693 3436 3433 3449 ...
+ $ acceleration: num [1:397] 12 11.5 11 12 10.5 10 9 8.5 10 8.5 ...
+ $ year        : num [1:397] 70 70 70 70 70 70 70 70 70 70 ...
+ $ origin      : num [1:397] 1 1 1 1 1 1 1 1 1 1 ...
+ $ name        : chr [1:397] "chevrolet chevelle malibu" "buick skylark 320" "plymouth satellite" "amc rebel sst" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   mpg = col_double(),
+  ..   cylinders = col_double(),
+  ..   displacement = col_double(),
+  ..   horsepower = col_character(),
+  ..   weight = col_double(),
+  ..   acceleration = col_double(),
+  ..   year = col_double(),
+  ..   origin = col_double(),
+  ..   name = col_character()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+> 
+> #Using the above command, we can see that the dimensions of this matrix are 397 X 9
+> 
+> # Part D: Use an R command to remove all NAs from Auto variable. Redo above steps to see new dimensions of Auto variable.
+> #   Note: There are no NA values directly in Auto as indicated by the "unique()" commands below for each variable, but there are "?" for horsepower. Changing those to NA and removing them for this step. 
+> 
+> unique(Auto$mpg)
+  [1] 18.0 15.0 16.0 17.0 14.0 24.0 22.0 21.0 27.0 26.0 25.0 10.0 11.0  9.0 28.0 19.0 12.0 13.0 23.0 30.0 31.0
+ [22] 35.0 20.0 29.0 32.0 33.0 17.5 15.5 14.5 22.5 24.5 18.5 29.5 26.5 16.5 31.5 36.0 25.5 33.5 20.5 30.5 21.5
+ [43] 43.1 36.1 32.8 39.4 19.9 19.4 20.2 19.2 25.1 20.6 20.8 18.6 18.1 17.7 27.5 27.2 30.9 21.1 23.2 23.8 23.9
+ [64] 20.3 21.6 16.2 19.8 22.3 17.6 18.2 16.9 31.9 34.1 35.7 27.4 25.4 34.2 34.5 31.8 37.3 28.4 28.8 26.8 41.5
+ [85] 38.1 32.1 37.2 26.4 24.3 19.1 34.3 29.8 31.3 37.0 32.2 46.6 27.9 40.8 44.3 43.4 36.4 44.6 40.9 33.8 32.7
+[106] 23.7 23.6 32.4 26.6 25.8 23.5 39.1 39.0 35.1 32.3 37.7 34.7 34.4 29.9 33.7 32.9 31.6 28.1 30.7 24.2 22.4
+[127] 34.0 38.0 44.0
+> 
+> unique(Auto$cylinders)
+[1] 8 4 6 3 5
+> 
+> unique(Auto$displacement)
+ [1] 307.0 350.0 318.0 304.0 302.0 429.0 454.0 440.0 455.0 390.0 383.0 340.0 400.0 113.0 198.0 199.0 200.0
+[18]  97.0 110.0 107.0 104.0 121.0 360.0 140.0  98.0 232.0 225.0 250.0 351.0 258.0 122.0 116.0  79.0  88.0
+[35]  71.0  72.0  91.0  97.5  70.0 120.0  96.0 108.0 155.0  68.0 114.0 156.0  76.0  83.0  90.0 231.0 262.0
+[52] 134.0 119.0 171.0 115.0 101.0 305.0  85.0 130.0 168.0 111.0 260.0 151.0 146.0  80.0  78.0 105.0 131.0
+[69] 163.0  89.0 267.0  86.0 183.0 141.0 173.0 135.0  81.0 100.0 145.0 112.0 181.0 144.0
+> 
+> unique(Auto$horsepower)
+ [1] "130" "165" "150" "140" "198" "220" "215" "225" "190" "170" "160" "95"  "97"  "85"  "88"  "46"  "87" 
+[18] "90"  "113" "200" "210" "193" "?"   "100" "105" "175" "153" "180" "110" "72"  "86"  "70"  "76"  "65" 
+[35] "69"  "60"  "80"  "54"  "208" "155" "112" "92"  "145" "137" "158" "167" "94"  "107" "230" "49"  "75" 
+[52] "91"  "122" "67"  "83"  "78"  "52"  "61"  "93"  "148" "129" "96"  "71"  "98"  "115" "53"  "81"  "79" 
+[69] "120" "152" "102" "108" "68"  "58"  "149" "89"  "63"  "48"  "66"  "139" "103" "125" "133" "138" "135"
+[86] "142" "77"  "62"  "132" "84"  "64"  "74"  "116" "82" 
+> 
+> unique(Auto$weight)
+  [1] 3504 3693 3436 3433 3449 4341 4354 4312 4425 3850 3563 3609 3761 3086 2372 2833 2774 2587 2130 1835 2672
+ [22] 2430 2375 2234 2648 4615 4376 4382 4732 2264 2228 2046 2634 3439 3329 3302 3288 4209 4464 4154 4096 4955
+ [43] 4746 5140 2962 2408 3282 3139 2220 2123 2074 2065 1773 1613 1834 1955 2278 2126 2254 2226 4274 4385 4135
+ [64] 4129 3672 4633 4502 4456 4422 2330 3892 4098 4294 4077 2933 2511 2979 2189 2395 2288 2506 2164 2100 4100
+ [85] 3988 4042 3777 4952 4363 4237 4735 4951 3821 3121 3278 2945 3021 2904 1950 4997 4906 4654 4499 2789 2279
+[106] 2401 2379 2124 2310 2472 2265 4082 4278 1867 2158 2582 2868 3399 2660 2807 3664 3102 2875 2901 3336 2451
+[127] 1836 2542 3781 3632 3613 4141 4699 4457 4638 4257 2219 1963 2300 1649 2003 2125 2108 2246 2489 2391 2000
+[148] 3264 3459 3432 3158 4668 4440 4498 4657 3907 3897 3730 3785 3039 3221 3169 2171 2639 2914 2592 2702 2223
+[169] 2545 2984 1937 3211 2694 2957 2671 1795 2464 2572 2255 2202 4215 4190 3962 3233 3353 3012 3085 2035 3651
+[190] 3574 3645 3193 1825 1990 2155 2565 3150 3940 3270 2930 3820 4380 4055 3870 3755 2045 1945 3880 4060 4140
+[211] 4295 3520 3425 3630 3525 4220 4165 4325 4335 1940 2740 2755 2051 2075 1985 2190 2815 2600 2720 1800 2070
+[232] 3365 3735 3570 3535 3155 2965 3430 3210 3380 3070 3620 3410 3445 3205 4080 2560 2230 2515 2745 2855 2405
+[253] 2830 3140 2795 2135 3245 2990 2890 3265 3360 3840 3725 3955 3830 4360 4054 3605 1925 1975 1915 2670 3530
+[274] 3900 3190 3420 2200 2150 2020 2595 2700 2556 2144 1968 2120 2019 2678 2870 3003 3381 2188 2711 2434 2110
+[295] 2800 2085 2335 2950 3250 1850 2145 1845 2910 2420 2500 2905 2290 2490 2635 2620 2725 2385 1755 1875 1760
+[316] 2050 2215 2380 2320 2210 2350 2615 3230 3160 2900 3415 3060 3465 2605 2640 2575 2525 2735 2865 1980 2025
+[337] 1970 2160 2205 2245 1965 1995 3015 2585 2835 2665 2370 2790 2295 2625
+> 
+> unique(Auto$acceleration)
+ [1] 12.0 11.5 11.0 10.5 10.0  9.0  8.5  8.0  9.5 15.0 15.5 16.0 14.5 20.5 17.5 12.5 14.0 13.5 18.5 19.0 13.0
+[22] 19.5 18.0 17.0 23.5 16.5 21.0 16.9 14.9 17.7 15.3 13.9 12.8 15.4 17.6 22.2 22.1 14.2 17.4 16.2 17.8 12.2
+[43] 16.4 13.6 15.7 13.2 21.9 16.7 12.1 14.8 18.6 16.8 13.7 11.1 11.4 18.2 15.8 15.9 14.1 21.5 14.4 19.4 19.2
+[64] 17.2 18.7 15.1 13.4 11.2 14.7 16.6 17.3 15.2 14.3 20.1 24.8 11.3 12.9 18.8 18.1 17.9 21.7 23.7 19.9 21.8
+[85] 13.8 12.6 16.1 20.7 18.3 20.4 19.6 17.1 15.6 24.6 11.6
+> 
+> unique(Auto$year)
+ [1] 70 71 72 73 74 75 76 77 78 79 80 81 82
+> 
+> unique(Auto$origin)
+[1] 1 3 2
+> 
+> unique(Auto$name)
+  [1] "chevrolet chevelle malibu"            "buick skylark 320"                   
+  [3] "plymouth satellite"                   "amc rebel sst"                       
+  [5] "ford torino"                          "ford galaxie 500"                    
+  [7] "chevrolet impala"                     "plymouth fury iii"                   
+  [9] "pontiac catalina"                     "amc ambassador dpl"                  
+ [11] "dodge challenger se"                  "plymouth 'cuda 340"                  
+ [13] "chevrolet monte carlo"                "buick estate wagon (sw)"             
+ [15] "toyota corona mark ii"                "plymouth duster"                     
+ [17] "amc hornet"                           "ford maverick"                       
+ [19] "datsun pl510"                         "volkswagen 1131 deluxe sedan"        
+ [21] "peugeot 504"                          "audi 100 ls"                         
+ [23] "saab 99e"                             "bmw 2002"                            
+ [25] "amc gremlin"                          "ford f250"                           
+ [27] "chevy c20"                            "dodge d200"                          
+ [29] "hi 1200d"                             "chevrolet vega 2300"                 
+ [31] "toyota corona"                        "ford pinto"                          
+ [33] "plymouth satellite custom"            "ford torino 500"                     
+ [35] "amc matador"                          "pontiac catalina brougham"           
+ [37] "dodge monaco (sw)"                    "ford country squire (sw)"            
+ [39] "pontiac safari (sw)"                  "amc hornet sportabout (sw)"          
+ [41] "chevrolet vega (sw)"                  "pontiac firebird"                    
+ [43] "ford mustang"                         "mercury capri 2000"                  
+ [45] "opel 1900"                            "peugeot 304"                         
+ [47] "fiat 124b"                            "toyota corolla 1200"                 
+ [49] "datsun 1200"                          "volkswagen model 111"                
+ [51] "plymouth cricket"                     "toyota corona hardtop"               
+ [53] "dodge colt hardtop"                   "volkswagen type 3"                   
+ [55] "chevrolet vega"                       "ford pinto runabout"                 
+ [57] "amc ambassador sst"                   "mercury marquis"                     
+ [59] "buick lesabre custom"                 "oldsmobile delta 88 royale"          
+ [61] "chrysler newport royal"               "mazda rx2 coupe"                     
+ [63] "amc matador (sw)"                     "chevrolet chevelle concours (sw)"    
+ [65] "ford gran torino (sw)"                "plymouth satellite custom (sw)"      
+ [67] "volvo 145e (sw)"                      "volkswagen 411 (sw)"                 
+ [69] "peugeot 504 (sw)"                     "renault 12 (sw)"                     
+ [71] "ford pinto (sw)"                      "datsun 510 (sw)"                     
+ [73] "toyouta corona mark ii (sw)"          "dodge colt (sw)"                     
+ [75] "toyota corolla 1600 (sw)"             "buick century 350"                   
+ [77] "chevrolet malibu"                     "ford gran torino"                    
+ [79] "dodge coronet custom"                 "mercury marquis brougham"            
+ [81] "chevrolet caprice classic"            "ford ltd"                            
+ [83] "plymouth fury gran sedan"             "chrysler new yorker brougham"        
+ [85] "buick electra 225 custom"             "amc ambassador brougham"             
+ [87] "plymouth valiant"                     "chevrolet nova custom"               
+ [89] "volkswagen super beetle"              "ford country"                        
+ [91] "plymouth custom suburb"               "oldsmobile vista cruiser"            
+ [93] "toyota carina"                        "datsun 610"                          
+ [95] "maxda rx3"                            "mercury capri v6"                    
+ [97] "fiat 124 sport coupe"                 "chevrolet monte carlo s"             
+ [99] "pontiac grand prix"                   "fiat 128"                            
+[101] "opel manta"                           "audi 100ls"                          
+[103] "volvo 144ea"                          "dodge dart custom"                   
+[105] "saab 99le"                            "toyota mark ii"                      
+[107] "oldsmobile omega"                     "chevrolet nova"                      
+[109] "datsun b210"                          "chevrolet chevelle malibu classic"   
+[111] "plymouth satellite sebring"           "buick century luxus (sw)"            
+[113] "dodge coronet custom (sw)"            "audi fox"                            
+[115] "volkswagen dasher"                    "datsun 710"                          
+[117] "dodge colt"                           "fiat 124 tc"                         
+[119] "honda civic"                          "subaru"                              
+[121] "fiat x1.9"                            "plymouth valiant custom"             
+[123] "mercury monarch"                      "chevrolet bel air"                   
+[125] "plymouth grand fury"                  "buick century"                       
+[127] "chevroelt chevelle malibu"            "plymouth fury"                       
+[129] "buick skyhawk"                        "chevrolet monza 2+2"                 
+[131] "ford mustang ii"                      "toyota corolla"                      
+[133] "pontiac astro"                        "volkswagen rabbit"                   
+[135] "amc pacer"                            "volvo 244dl"                         
+[137] "honda civic cvcc"                     "fiat 131"                            
+[139] "capri ii"                             "renault 12tl"                        
+[141] "dodge coronet brougham"               "chevrolet chevette"                  
+[143] "chevrolet woody"                      "vw rabbit"                           
+[145] "dodge aspen se"                       "ford granada ghia"                   
+[147] "pontiac ventura sj"                   "amc pacer d/l"                       
+[149] "datsun b-210"                         "volvo 245"                           
+[151] "plymouth volare premier v8"           "mercedes-benz 280s"                  
+[153] "cadillac seville"                     "chevy c10"                           
+[155] "ford f108"                            "dodge d100"                          
+[157] "honda accord cvcc"                    "buick opel isuzu deluxe"             
+[159] "renault 5 gtl"                        "plymouth arrow gs"                   
+[161] "datsun f-10 hatchback"                "oldsmobile cutlass supreme"          
+[163] "dodge monaco brougham"                "mercury cougar brougham"             
+[165] "chevrolet concours"                   "buick skylark"                       
+[167] "plymouth volare custom"               "ford granada"                        
+[169] "pontiac grand prix lj"                "chevrolet monte carlo landau"        
+[171] "chrysler cordoba"                     "ford thunderbird"                    
+[173] "volkswagen rabbit custom"             "pontiac sunbird coupe"               
+[175] "toyota corolla liftback"              "ford mustang ii 2+2"                 
+[177] "dodge colt m/m"                       "subaru dl"                           
+[179] "datsun 810"                           "bmw 320i"                            
+[181] "mazda rx-4"                           "volkswagen rabbit custom diesel"     
+[183] "ford fiesta"                          "mazda glc deluxe"                    
+[185] "datsun b210 gx"                       "oldsmobile cutlass salon brougham"   
+[187] "dodge diplomat"                       "mercury monarch ghia"                
+[189] "pontiac phoenix lj"                   "ford fairmont (auto)"                
+[191] "ford fairmont (man)"                  "plymouth volare"                     
+[193] "amc concord"                          "buick century special"               
+[195] "mercury zephyr"                       "dodge aspen"                         
+[197] "amc concord d/l"                      "buick regal sport coupe (turbo)"     
+[199] "ford futura"                          "dodge magnum xe"                     
+[201] "datsun 510"                           "dodge omni"                          
+[203] "toyota celica gt liftback"            "plymouth sapporo"                    
+[205] "oldsmobile starfire sx"               "datsun 200-sx"                       
+[207] "audi 5000"                            "volvo 264gl"                         
+[209] "saab 99gle"                           "peugeot 604sl"                       
+[211] "volkswagen scirocco"                  "honda accord lx"                     
+[213] "pontiac lemans v6"                    "mercury zephyr 6"                    
+[215] "ford fairmont 4"                      "amc concord dl 6"                    
+[217] "dodge aspen 6"                        "ford ltd landau"                     
+[219] "mercury grand marquis"                "dodge st. regis"                     
+[221] "chevrolet malibu classic (sw)"        "chrysler lebaron town @ country (sw)"
+[223] "vw rabbit custom"                     "maxda glc deluxe"                    
+[225] "dodge colt hatchback custom"          "amc spirit dl"                       
+[227] "mercedes benz 300d"                   "cadillac eldorado"                   
+[229] "plymouth horizon"                     "plymouth horizon tc3"                
+[231] "datsun 210"                           "fiat strada custom"                  
+[233] "buick skylark limited"                "chevrolet citation"                  
+[235] "oldsmobile omega brougham"            "pontiac phoenix"                     
+[237] "toyota corolla tercel"                "datsun 310"                          
+[239] "ford fairmont"                        "audi 4000"                           
+[241] "toyota corona liftback"               "mazda 626"                           
+[243] "datsun 510 hatchback"                 "mazda glc"                           
+[245] "vw rabbit c (diesel)"                 "vw dasher (diesel)"                  
+[247] "audi 5000s (diesel)"                  "mercedes-benz 240d"                  
+[249] "honda civic 1500 gl"                  "renault lecar deluxe"                
+[251] "vokswagen rabbit"                     "datsun 280-zx"                       
+[253] "mazda rx-7 gs"                        "triumph tr7 coupe"                   
+[255] "ford mustang cobra"                   "honda accord"                        
+[257] "plymouth reliant"                     "dodge aries wagon (sw)"              
+[259] "toyota starlet"                       "plymouth champ"                      
+[261] "honda civic 1300"                     "datsun 210 mpg"                      
+[263] "toyota tercel"                        "mazda glc 4"                         
+[265] "plymouth horizon 4"                   "ford escort 4w"                      
+[267] "ford escort 2h"                       "volkswagen jetta"                    
+[269] "renault 18i"                          "honda prelude"                       
+[271] "datsun 200sx"                         "peugeot 505s turbo diesel"           
+[273] "volvo diesel"                         "toyota cressida"                     
+[275] "datsun 810 maxima"                    "oldsmobile cutlass ls"               
+[277] "ford granada gl"                      "chrysler lebaron salon"              
+[279] "chevrolet cavalier"                   "chevrolet cavalier wagon"            
+[281] "chevrolet cavalier 2-door"            "pontiac j2000 se hatchback"          
+[283] "dodge aries se"                       "ford fairmont futura"                
+[285] "volkswagen rabbit l"                  "mazda glc custom l"                  
+[287] "mazda glc custom"                     "plymouth horizon miser"              
+[289] "mercury lynx l"                       "nissan stanza xe"                    
+[291] "honda civic (auto)"                   "datsun 310 gx"                       
+[293] "buick century limited"                "oldsmobile cutlass ciera (diesel)"   
+[295] "chrysler lebaron medallion"           "ford granada l"                      
+[297] "toyota celica gt"                     "dodge charger 2.2"                   
+[299] "chevrolet camaro"                     "ford mustang gl"                     
+[301] "vw pickup"                            "dodge rampage"                       
+[303] "ford ranger"                          "chevy s-10"                          
+>                         
+> #Change the values for horsepower to NA
+> 
+> Auto$horsepower = ifelse(Auto$horsepower == "?", NA, Auto$horsepower)
+> 
+> #We can now confirm there are NAs rather than "?" and remove them
+> unique(Auto$horsepower)
+ [1] "130" "165" "150" "140" "198" "220" "215" "225" "190" "170" "160" "95"  "97"  "85"  "88"  "46"  "87" 
+[18] "90"  "113" "200" "210" "193" NA    "100" "105" "175" "153" "180" "110" "72"  "86"  "70"  "76"  "65" 
+[35] "69"  "60"  "80"  "54"  "208" "155" "112" "92"  "145" "137" "158" "167" "94"  "107" "230" "49"  "75" 
+[52] "91"  "122" "67"  "83"  "78"  "52"  "61"  "93"  "148" "129" "96"  "71"  "98"  "115" "53"  "81"  "79" 
+[69] "120" "152" "102" "108" "68"  "58"  "149" "89"  "63"  "48"  "66"  "139" "103" "125" "133" "138" "135"
+[86] "142" "77"  "62"  "132" "84"  "64"  "74"  "116" "82" 
+> Auto = na.omit(Auto)
+> 
+> #For a later step, lets change horespower to be represented as an integer
+> Auto$horsepower = as.integer(Auto$horsepower)
+> 
+> #We can now see that Auto is 392 X 9 in dimensions
+> str(Auto)
+tibble [392 × 9] (S3: tbl_df/tbl/data.frame)
+ $ mpg         : num [1:392] 18 15 18 16 17 15 14 14 14 15 ...
+ $ cylinders   : num [1:392] 8 8 8 8 8 8 8 8 8 8 ...
+ $ displacement: num [1:392] 307 350 318 304 302 429 454 440 455 390 ...
+ $ horsepower  : int [1:392] 130 165 150 150 140 198 220 215 225 190 ...
+ $ weight      : num [1:392] 3504 3693 3436 3433 3449 ...
+ $ acceleration: num [1:392] 12 11.5 11 12 10.5 10 9 8.5 10 8.5 ...
+ $ year        : num [1:392] 70 70 70 70 70 70 70 70 70 70 ...
+ $ origin      : num [1:392] 1 1 1 1 1 1 1 1 1 1 ...
+ $ name        : chr [1:392] "chevrolet chevelle malibu" "buick skylark 320" "plymouth satellite" "amc rebel sst" ...
+ - attr(*, "na.action")= 'omit' Named int [1:5] 33 127 331 337 355
+  ..- attr(*, "names")= chr [1:5] "33" "127" "331" "337" ...
+> 
+> # Part E: Use an R command to report the names of all variables in Auto
+> ls(Auto)
+[1] "acceleration" "cylinders"    "displacement" "horsepower"   "mpg"          "name"         "origin"      
+[8] "weight"       "year"        
+> 
+> # Part F: Use attach() function to be able to directly access fields in Auto variable and then plot the cylinders by mpg. 
+> attach(Auto)
+The following object is masked _by_ .GlobalEnv:
+
+    cylinders
+
+> plot(mpg, cylinders)
+> 
+> # Part G: Convert the “cylinders” field in auto to a factor and use the plot function to generate a plot of cylinders by mpg. Make sure the results are drawn with green color and the y and x axis of the graph has “CYLINDERS” and “MPG” respectively. 
+> cylinders = factor(cylinders)
+> str(cylinders)
+ Factor w/ 5 levels "3","4","5","6",..: 5 5 5 5 5 5 5 5 5 5 ...
+> plot(mpg, cylinders, col = "#00FF00")
+> 
+> # Part H: Draw a histogram of mpg in Auto using green.
+> hist(mpg, col = "#00FF00")
+> 
+> #   Note: not sure why I am getting 9 bars when the instructions say there should be 10
+> 
+> # Part I: Use the pairs() function in R to generate a plot matrix, consisting of scatterplots for each variable-combination of "mpg", "displacement", "horsepower", "weight", and "acceleration" fields in Auto variable. 
+> #   Note: Changing the horsepower field to be represented as integers earlier was to enable the pairs function to operate correctly given that it was originally represented as strings due to the "?" value in the data. 
+> 
+> pairs(Auto[c("mpg", "displacement", "horsepower", "weight", "acceleration")])
+> 
+> # Part J: Report Descriptive Statistics for all fields of Auto variable
+> 
+> summary(Auto)
+      mpg          cylinders      displacement     horsepower        weight      acceleration  
+ Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613   Min.   : 8.00  
+ 1st Qu.:17.00   1st Qu.:4.000   1st Qu.:105.0   1st Qu.: 75.0   1st Qu.:2225   1st Qu.:13.78  
+ Median :22.75   Median :4.000   Median :151.0   Median : 93.5   Median :2804   Median :15.50  
+ Mean   :23.45   Mean   :5.472   Mean   :194.4   Mean   :104.5   Mean   :2978   Mean   :15.54  
+ 3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:275.8   3rd Qu.:126.0   3rd Qu.:3615   3rd Qu.:17.02  
+ Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.0   Max.   :5140   Max.   :24.80  
+      year           origin          name          
+ Min.   :70.00   Min.   :1.000   Length:392        
+ 1st Qu.:73.00   1st Qu.:1.000   Class :character  
+ Median :76.00   Median :1.000   Mode  :character  
+ Mean   :75.98   Mean   :1.577                     
+ 3rd Qu.:79.00   3rd Qu.:2.000                     
+ Max.   :82.00   Max.   :3.000                     
+> 
